@@ -1,0 +1,43 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.cluster import KMeans
+from sklearn.mixture import GaussianMixture
+
+# Load dataset
+iris = load_iris()
+X = iris.data[:, :2]   # use 2 features for visualization
+
+# -------------------------
+# K-Means
+# -------------------------
+kmeans = KMeans(n_clusters=3, random_state=42)
+k_labels = kmeans.fit_predict(X)
+k_centers = kmeans.cluster_centers_
+
+# -------------------------
+# EM (Gaussian Mixture)
+# -------------------------
+gmm = GaussianMixture(n_components=3, random_state=42)
+g_labels = gmm.fit_predict(X)
+g_centers = gmm.means_
+
+# -------------------------
+# Plot K-Means
+# -------------------------
+plt.figure(figsize=(10,4))
+
+plt.subplot(1,2,1)
+plt.scatter(X[:,0], X[:,1], c=k_labels)
+plt.scatter(k_centers[:,0], k_centers[:,1], marker='X', s=200)
+plt.title("K-Means Clustering")
+
+# -------------------------
+# Plot EM (GMM)
+# -------------------------
+plt.subplot(1,2,2)
+plt.scatter(X[:,0], X[:,1], c=g_labels)
+plt.scatter(g_centers[:,0], g_centers[:,1], marker='X', s=200)
+plt.title("EM (Gaussian Mixture)")
+
+plt.show()
