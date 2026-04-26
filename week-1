@@ -1,0 +1,26 @@
+import math
+import matplotlib.pyplot as plt
+x=[1,2,3,4,5]
+y=[2,4,5,4,5]
+n=len(x)
+xmean=sum(x)/n
+ymean=sum(y)/n
+num=0
+den=0
+for i in range(n):
+ num+=(x[i]-xmean)*(y[i]-ymean)
+ den+=(x[i]-xmean)**2
+m=num/den
+c=ymean-m*xmean
+print(m)
+print(c)
+mse=sum((y[i]-ypred[i])**2 for i in range(n))/n
+print("MSE:",mse)
+rmse=math.sqrt(mse)
+print("RMSE:",rmse)
+ypred=[]
+for i in range(n):
+  ypred.append(m*x[i]+c)
+plt.scatter(x,y)
+plt.plot(x,ypred)
+plt.show()
