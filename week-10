@@ -1,0 +1,29 @@
+import numpy as np
+from sklearn.datasets import load_iris
+from sklearn.linear_model import Perceptron
+from sklearn.model_selection import train_test_split
+
+# Load dataset
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Convert to binary (setosa vs not setosa)
+y = (y == 0).astype(int)
+
+# Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Model
+model = Perceptron()
+model.fit(X_train, y_train)
+
+# Accuracy
+print("Training Accuracy:", model.score(X_train, y_train))
+print("Testing Accuracy:", model.score(X_test, y_test))
+
+# Weights & Bias
+print("Weights:", model.coef_)
+print("Bias:", model.intercept_)
